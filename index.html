@@ -1,480 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STI Testing: Where to Go & What to Know</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vallejo Youth Health Resource Directory</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* === GLOBAL STYLES – re-use palette from Session slides === */
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #a78bfa;
+            --primary: #4c6ef5;
+            --primary-dark: #364fc7;
+            --secondary: #40c057;
             --accent: #fbbf24;
             --dark: #1e293b;
-            --light: #f1f5f9;
+            --light: #f8f9fa;
             --text: #334155;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             line-height: 1.6;
             color: var(--text);
-            background: linear-gradient(135deg, #f3f4f6 0%, #e0e7ff 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, #f1f3f5 0%, #e7f5ff 100%);
         }
-
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: auto;
             padding: 20px;
         }
-
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
+            color: #fff;
             border-radius: 20px;
             margin-bottom: 40px;
-            box-shadow: var(--card-shadow);
-            animation: fadeInDown 0.8s ease-out;
+            box-shadow: var(--shadow);
         }
+        header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; }
+        header p { font-size: 1.1rem; opacity: 0.95; }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.95;
-        }
-
-        .rights-notice {
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--dark);
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            box-shadow: var(--card-shadow);
-            animation: fadeIn 0.8s ease-out 0.2s both;
-            border-left: 5px solid var(--accent);
-        }
-
-        .rights-notice h2 {
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .rights-notice h2::before {
-            content: "🛡️";
-            font-size: 1.5rem;
-        }
-
+        /* SECTION TITLES */
         .section-title {
-            font-size: 2rem;
+            font-size: 1.9rem;
             color: var(--dark);
             margin: 40px 0 20px;
             text-align: center;
             position: relative;
-            animation: fadeIn 0.8s ease-out 0.3s both;
         }
-
         .section-title::after {
-            content: "";
+            content: '';
             display: block;
-            width: 80px;
+            width: 90px;
             height: 4px;
             background: var(--primary);
-            margin: 10px auto;
+            margin: 10px auto 0;
             border-radius: 2px;
         }
-
-        .clinic-grid {
+        /* GRID & CARDS */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
             gap: 25px;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
-
-        .clinic-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease-out;
-            animation-fill-mode: both;
-            border-top: 4px solid var(--primary);
+        .card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            border-top: 5px solid var(--primary);
         }
-
-        .clinic-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        .clinic-card h3 {
+        .card:hover { transform: translateY(-6px); }
+        .card h3 {
+            font-size: 1.3rem;
             color: var(--primary-dark);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+            margin-bottom: 12px;
         }
-
-        .clinic-info {
-            margin-bottom: 8px;
+        .info-line {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .clinic-info strong {
-            color: var(--dark);
-            min-width: 100px;
-            font-weight: 600;
-        }
-
-        .highlight {
-            background: linear-gradient(135deg, var(--accent), #fcd34d);
-            color: var(--dark);
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-weight: 600;
-            text-align: center;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .services-list {
-            background: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
+            gap: 8px;
+            margin-bottom: 6px;
             font-size: 0.95rem;
-            line-height: 1.8;
         }
-
-        .walk-in-note {
-            font-style: italic;
-            color: var(--primary-dark);
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
-        }
-
-        /* Stagger animations for clinic cards */
-        .clinic-card:nth-child(1) { animation-delay: 0.4s; }
-        .clinic-card:nth-child(2) { animation-delay: 0.5s; }
-        .clinic-card:nth-child(3) { animation-delay: 0.6s; }
-        .clinic-card:nth-child(4) { animation-delay: 0.7s; }
-        .clinic-card:nth-child(5) { animation-delay: 0.8s; }
-        .clinic-card:nth-child(6) { animation-delay: 0.9s; }
-        .clinic-card:nth-child(7) { animation-delay: 1.0s; }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            .clinic-grid {
-                grid-template-columns: 1fr;
-            }
-            .clinic-info {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .clinic-info strong {
-                min-width: auto;
-            }
-        }
-
-        /* Smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--light);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
+        .info-line strong { color: var(--dark); min-width: 100px; font-weight: 600; }
+        .services { background: var(--light); padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; margin-top: 8px; }
+        .highlight { background: var(--accent); color: var(--dark); padding: 6px 10px; border-radius: 6px; font-weight: 600; display: inline-block; margin-top: 10px; }
+        @media (max-width: 768px) { header h1 { font-size: 1.9rem; } .info-line { flex-direction: column; } .info-line strong { min-width: auto; } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>STI Testing: Where to Go & What to Know</h1>
-            <p class="subtitle">Confidential Resources for Teens in Solano County</p>
-        </header>
+<div class="container">
+    <header>
+        <h1>Vallejo Youth Health Resource Directory</h1>
+        <p>Fast, confidential help for STI testing, mental-health support & food security</p>
+    </header>
 
-        <div class="rights-notice">
-            <h2>Your Rights as a Teen in California</h2>
-            <p>As a teen in California, you should know that state law protects your right to confidential STI testing. If you're 12 or older, you can get tested and treated without your parents' permission, and healthcare providers are not allowed to tell your parents.</p>
+    <!-- ================= STI CLINICS ================= -->
+    <h2 class="section-title">1. STI / Sexual-Health Clinics</h2>
+    <div class="grid">
+        <!-- Solano County FH Services -->
+        <div class="card">
+            <h3>Solano County Family Health Services – Vallejo Clinic</h3>
+            <div class="info-line"><strong>Address:</strong><span>365 Tuolumne St., Vallejo</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>707-784-2010</span></div>
+            <div class="services"><strong>Services:</strong> Free/low-cost STI testing & treatment • HIV PrEP/PEP • Pregnancy testing • Condom pick-up • “Don’t Think Know” home test kits</div>
+            <span class="highlight">Walk-in accepted</span>
         </div>
-
-        <h2 class="section-title">County Health Clinics</h2>
-        <div class="clinic-grid">
-            <div class="clinic-card">
-                <h3>Solano County Family Health Services - Vallejo</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>365 Toulumne St, Vallejo</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 553-5509</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Monday-Friday, 8:00am-6:00pm</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span>Sliding scale fees, Medi-Cal accepted</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans local routes</span>
-                </div>
-                <div class="services-list">
-                    <strong>Services:</strong> HIV, chlamydia, gonorrhea, syphilis testing; HPV and hepatitis vaccines
-                </div>
-                <div class="highlight">No parental consent needed if you're 12+</div>
-                <p class="walk-in-note">Walk-ins accepted but appointments recommended</p>
-            </div>
-
-            <div class="clinic-card">
-                <h3>Solano County Family Health Services - Fairfield</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>2201 Courage Dr, Fairfield</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 784-2010</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Monday-Friday, 7:30am-5:00pm</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span>Sliding scale fees, Medi-Cal accepted</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans/Solano Express routes</span>
-                </div>
-                <div class="services-list">
-                    <strong>Services:</strong> HIV, chlamydia, gonorrhea, syphilis testing; HPV and hepatitis vaccines
-                </div>
-                <div class="highlight">No parental consent needed if you're 12+</div>
-                <p class="walk-in-note">Walk-ins accepted but appointments recommended</p>
-            </div>
-
-            <div class="clinic-card">
-                <h3>Solano County Family Health Services - Vacaville</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>1119 East Monte Vista Ave, Vacaville</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 469-4640</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Monday-Friday, business hours</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span>Sliding scale fees, Medi-Cal accepted</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans/Solano Express routes</span>
-                </div>
-                <div class="services-list">
-                    <strong>Services:</strong> Walk-in STD testing
-                </div>
-                <div class="highlight">No parental consent needed if you're 12+</div>
-            </div>
+        <!-- Planned Parenthood -->
+        <div class="card">
+            <h3>Planned Parenthood – Vallejo Health Center</h3>
+            <div class="info-line"><strong>Address:</strong><span>303 Sacramento St., Vallejo</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>707-643-4545</span></div>
+            <div class="services"><strong>Services:</strong> Same-day birth control • Rapid STI panels • HPV vaccine • Gender-affirming care</div>
+            <span class="highlight">Book online for fastest slot</span>
         </div>
-
-        <h2 class="section-title">Planned Parenthood Locations</h2>
-        <div class="clinic-grid">
-            <div class="clinic-card">
-                <h3>Planned Parenthood - Fairfield Health Center</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>1325 Travis Blvd, Suite C, Fairfield</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 429-8855 or 1-800-230-PLAN</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Monday: 12:00pm-8:00pm, Tuesday-Friday: various hours (check website)</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span>Most insurance plans accepted; sliding scale fees available</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans/Solano Express routes</span>
-                </div>
-                <div class="services-list">
-                    <strong>Services:</strong> STD testing and treatment, HIV testing, HPV vaccines
-                </div>
-                <div class="highlight">No parental consent needed if you're 12+</div>
-                <p class="walk-in-note">Book online for fastest service: plannedparenthood.org</p>
-            </div>
-
-            <div class="clinic-card">
-                <h3>Planned Parenthood - Vallejo Health Center</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>303 Sacramento St, Vallejo</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 643-4545 or 1-800-230-PLAN</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Call or check website for current hours</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span>Most insurance plans accepted; sliding scale fees available</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans local routes</span>
-                </div>
-                <div class="services-list">
-                    <strong>Services:</strong> STD testing and treatment, HIV testing, HPV vaccines
-                </div>
-                <div class="highlight">No parental consent needed if you're 12+</div>
-            </div>
-        </div>
-
-        <h2 class="section-title">Community Health Centers</h2>
-        <div class="clinic-grid">
-            <div class="clinic-card">
-                <h3>La Clinica Vallejo</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>210 Hospital Drive, Vallejo</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 645-7316</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Regular business hours, some Saturday availability</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span>Sliding scale fees available</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans local routes</span>
-                </div>
-                <div class="services-list">
-                    <strong>Services:</strong> STD/STI testing and treatment
-                </div>
-                <div class="highlight">No parental consent needed if you're 12+</div>
-            </div>
-
-            <div class="clinic-card">
-                <h3>Touro University Student-Run Free Clinic</h3>
-                <div class="clinic-info">
-                    <strong>Address:</strong>
-                    <span>545 Magazine Street, Vallejo (Norman C. King South Vallejo Community Center)</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Phone:</strong>
-                    <span>(707) 653-6331</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Hours:</strong>
-                    <span>Thursdays only, 4:30pm-8:00pm</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Cost:</strong>
-                    <span style="color: #059669; font-weight: 600;">Free</span>
-                </div>
-                <div class="clinic-info">
-                    <strong>Transportation:</strong>
-                    <span>On SolTrans local routes</span>
-                </div>
-                <p class="walk-in-note">Limited capacity, Thursdays only</p>
-            </div>
+        <!-- Kaiser Teen Clinic -->
+        <div class="card">
+            <h3>Kaiser Permanente Vallejo Teen Clinic</h3>
+            <div class="info-line"><strong>Address:</strong><span>975 Sereno Dr., Vallejo</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>1-800-464-4000 (ask “Teen Clinic”)</span></div>
+            <div class="services"><strong>Services:</strong> Confidential sexual-health & mental-health consults • Labs • Same-day appointments (KP or Medi-Cal members)</div>
+            <span class="highlight">Same-day possible</span>
         </div>
     </div>
+
+    <!-- ================= MENTAL HEALTH ================= -->
+    <h2 class="section-title">2. Mental-Health & Crisis Supports</h2>
+    <div class="grid">
+        <!-- Solano County BH -->
+        <div class="card">
+            <h3>Solano County Behavioral Health – Vallejo Outpatient</h3>
+            <div class="info-line"><strong>Address:</strong><span>275 Beck Ave., Vallejo</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>707-553-5331 • 988 (24-hr)</span></div>
+            <div class="services"><strong>Services:</strong> Walk-in “Access” screening • Therapy • Psychiatry • Mobile crisis dispatch</div>
+            <span class="highlight">Walk-in & 24-hr line</span>
+        </div>
+        <!-- NAMI Solano -->
+        <div class="card">
+            <h3>NAMI Solano County</h3>
+            <div class="info-line"><strong>Location:</strong><span>Support groups county-wide & online</span></div>
+            <div class="info-line"><strong>Phone/Text:</strong><span>707-422-7792 • Text “NAMI” 741-741</span></div>
+            <div class="services"><strong>Services:</strong> Free peer support groups • Classes • Resource line for teens & caregivers</div>
+            <span class="highlight">Free & confidential</span>
+        </div>
+        <!-- Touro SRFC & Solano Connex -->
+        <div class="card">
+            <h3>Touro University CA – SRFC & Solano Connex</h3>
+            <div class="info-line"><strong>Location:</strong><span>Pop-ups across Vallejo (see calendar)</span></div>
+            <div class="info-line"><strong>Online:</strong><span>SolanoConnex.org</span></div>
+            <div class="services"><strong>Services:</strong> Free behavioral-health screenings • Resource matching portal • Student-run clinics</div>
+            <span class="highlight">Submit request online</span>
+        </div>
+        <!-- Solano Pride Center -->
+        <div class="card">
+            <h3>Solano Pride Center</h3>
+            <div class="info-line"><strong>Address:</strong><span>1234 Empire St., Fairfield (bus from Vallejo)</span></div>
+            <div class="info-line"><strong>Phone/DM:</strong><span>707-207-3430 • @solanopride</span></div>
+            <div class="services"><strong>Services:</strong> LGBTQIA+ youth groups • Counseling vouchers • HIV prevention & support</div>
+            <span class="highlight">Youth-friendly space</span>
+        </div>
+    </div>
+
+    <!-- ================= FOOD SECURITY ================= -->
+    <h2 class="section-title">3. Food-Security Programs</h2>
+    <div class="grid">
+        <!-- Food Bank Mobile Pantry -->
+        <div class="card">
+            <h3>Food Bank of Contra Costa & Solano – Vallejo Mobile Pantry</h3>
+            <div class="info-line"><strong>Sites:</strong><span>Rotating Vallejo parks & community centers (twice monthly)</span></div>
+            <div class="info-line"><strong>Info:</strong><span>foodbankccs.org/vallejo • 707-642-2391</span></div>
+            <div class="services"><strong>Provides:</strong> Free fresh produce • Protein • Dairy • Volunteer opportunities</div>
+            <span class="highlight">Next-date lookup online</span>
+        </div>
+        <!-- Faith Food Fridays -->
+        <div class="card">
+            <h3>Faith Food Fridays</h3>
+            <div class="info-line"><strong>Address:</strong><span>826 Solano Ave., Vallejo</span></div>
+            <div class="info-line"><strong>Hours:</strong><span>Fridays 3-6 PM</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>707-557-7933</span></div>
+            <div class="services"><strong>Provides:</strong> Drive-thru grocery boxes • CalFresh & WIC referrals • Friendly volunteers</div>
+            <span class="highlight">No ID required</span>
+        </div>
+        <!-- WIC Vallejo -->
+        <div class="card">
+            <h3>WIC Vallejo & Mobile Sites</h3>
+            <div class="info-line"><strong>Main Office:</strong><span>365 Tuolumne St., Vallejo</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>707-784-2200</span></div>
+            <div class="services"><strong>Provides:</strong> Supplemental food packages for pregnant/parenting teens • Monthly mobile pantry schedule</div>
+            <span class="highlight">Free for eligible families</span>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
