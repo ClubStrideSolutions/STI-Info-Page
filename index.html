@@ -14,80 +14,91 @@
             --dark: #1e293b;
             --light: #f8f9fa;
             --text: #334155;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background: linear-gradient(135deg, #f1f3f5 0%, #e7f5ff 100%);
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:'Segoe UI',Tahoma,sans-serif;
+            line-height:1.6;
+            color:var(--text);
+            background:linear-gradient(135deg,#f1f3f5 0%,#e7f5ff 100%);
         }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
+        .container{max-width:1200px;margin:auto;padding:20px}
+        header{
+            text-align:center;
+            padding:50px 20px;
+            background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);
+            color:#fff;
+            border-radius:20px;
+            margin-bottom:40px;
+            box-shadow:var(--shadow);
         }
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: #fff;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow);
+        header h1{font-size:2.4rem;font-weight:700;margin-bottom:10px}
+        header p{font-size:1.1rem;opacity:.95}
+        .section-title{
+            font-size:1.9rem;
+            color:var(--dark);
+            margin:40px 0 20px;
+            text-align:center;
+            position:relative;
         }
-        header h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 10px; }
-        header p { font-size: 1.1rem; opacity: 0.95; }
-
-        /* SECTION TITLES */
-        .section-title {
-            font-size: 1.9rem;
-            color: var(--dark);
-            margin: 40px 0 20px;
-            text-align: center;
-            position: relative;
+        .section-title::after{
+            content:'';
+            display:block;
+            width:90px;
+            height:4px;
+            background:var(--primary);
+            margin:10px auto 0;
+            border-radius:2px;
         }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 90px;
-            height: 4px;
-            background: var(--primary);
-            margin: 10px auto 0;
-            border-radius: 2px;
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+            gap:25px;
+            margin-bottom:45px;
         }
-        /* GRID & CARDS */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-            gap: 25px;
-            margin-bottom: 45px;
+        .card{
+            background:#fff;
+            padding:24px;
+            border-radius:16px;
+            box-shadow:var(--shadow);
+            transition:transform .3s ease;
+            border-top:5px solid var(--primary);
         }
-        .card {
-            background: #fff;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-            border-top: 5px solid var(--primary);
+        .card:hover{transform:translateY(-6px)}
+        .card h3{
+            font-size:1.3rem;
+            color:var(--primary-dark);
+            margin-bottom:12px;
         }
-        .card:hover { transform: translateY(-6px); }
-        .card h3 {
-            font-size: 1.3rem;
-            color: var(--primary-dark);
-            margin-bottom: 12px;
+        .info-line{
+            display:flex;
+            gap:8px;
+            margin-bottom:6px;
+            font-size:.95rem;
         }
-        .info-line {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 6px;
-            font-size: 0.95rem;
+        .info-line strong{color:var(--dark);min-width:100px;font-weight:600}
+        .services{
+            background:var(--light);
+            padding:10px 14px;
+            border-radius:8px;
+            font-size:.9rem;
+            margin-top:8px;
         }
-        .info-line strong { color: var(--dark); min-width: 100px; font-weight: 600; }
-        .services { background: var(--light); padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; margin-top: 8px; }
-        .highlight { background: var(--accent); color: var(--dark); padding: 6px 10px; border-radius: 6px; font-weight: 600; display: inline-block; margin-top: 10px; }
-        @media (max-width: 768px) { header h1 { font-size: 1.9rem; } .info-line { flex-direction: column; } .info-line strong { min-width: auto; } }
+        .highlight{
+            background:var(--accent);
+            color:var(--dark);
+            padding:6px 10px;
+            border-radius:6px;
+            font-weight:600;
+            display:inline-block;
+            margin-top:10px;
+        }
+        @media(max-width:768px){
+            header h1{font-size:1.9rem}
+            .info-line{flex-direction:column}
+            .info-line strong{min-width:auto}
+        }
     </style>
 </head>
 <body>
@@ -123,6 +134,14 @@
             <div class="info-line"><strong>Phone:</strong><span>1-800-464-4000 (ask “Teen Clinic”)</span></div>
             <div class="services"><strong>Services:</strong> Confidential sexual-health & mental-health consults • Labs • Same-day appointments (KP or Medi-Cal members)</div>
             <span class="highlight">Same-day possible</span>
+        </div>
+        <!-- Napa Valley College Student Health Center -->
+        <div class="card">
+            <h3>Napa Valley College Student Health Center</h3>
+            <div class="info-line"><strong>Address:</strong><span>2277 Napa-Vallejo Hwy, Bldg 2250, Napa</span></div>
+            <div class="info-line"><strong>Phone:</strong><span>707-256-7780</span></div>
+            <div class="services"><strong>Services:</strong> Free birth control • STI testing & treatment • Condoms • Pregnancy tests • LGBTQ-affirming care</div>
+            <span class="highlight">Free for students • Bus 29 from Vallejo</span>
         </div>
     </div>
 
@@ -161,6 +180,14 @@
             <div class="services"><strong>Services:</strong> LGBTQIA+ youth groups • Counseling vouchers • HIV prevention & support</div>
             <span class="highlight">Youth-friendly space</span>
         </div>
+        <!-- Napa Valley College Mental Health -->
+        <div class="card">
+            <h3>Napa Valley College – Mentis & TimelyCare</h3>
+            <div class="info-line"><strong>Address:</strong><span>2277 Napa-Vallejo Hwy, Napa (Student Health Ctr)</span></div>
+            <div class="info-line"><strong>Phone/Online:</strong><span>On-campus therapy via Mentis • 24/7 virtual support at TimelyCare.app</span></div>
+            <div class="services"><strong>Services:</strong> Free confidential counseling • Same-day virtual emotional support • Relaxation room on campus</div>
+            <span class="highlight">Free for NVC students</span>
+        </div>
     </div>
 
     <!-- ================= FOOD SECURITY ================= -->
@@ -190,6 +217,14 @@
             <div class="info-line"><strong>Phone:</strong><span>707-784-2200</span></div>
             <div class="services"><strong>Provides:</strong> Supplemental food packages for pregnant/parenting teens • Monthly mobile pantry schedule</div>
             <span class="highlight">Free for eligible families</span>
+        </div>
+        <!-- Napa Valley College Basic Needs Center -->
+        <div class="card">
+            <h3>Napa Valley College Basic Needs Center</h3>
+            <div class="info-line"><strong>Address:</strong><span>Room 1202, 2277 Napa-Vallejo Hwy, Napa</span></div>
+            <div class="info-line"><strong>Info:</strong><span>nvcbasicneeds@napavalley.edu • @nvcbasicneeds</span></div>
+            <div class="services"><strong>Provides:</strong> On-campus food pantry • CalFresh application help • Emergency grocery gift cards • Community resource guide</div>
+            <span class="highlight">Free for NVC students</span>
         </div>
     </div>
 
